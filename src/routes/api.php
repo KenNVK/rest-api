@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use \App\Http\Controllers\ApiPostController;
 
 
 
@@ -17,6 +18,8 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 Route::get('/user', [AuthController::class, 'userInfo'])->middleware('auth:api');
+Route::resource('/posts', ApiPostController::class)->middleware('auth:api');
+Route::get('/posts/search/{search}', [ApiPostController::class, 'search'])->middleware('auth:api');
